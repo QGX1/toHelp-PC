@@ -9,14 +9,14 @@
               :class="{'active':item.active}"
               @mouseout="outStyle(item)"
               :key="item.id"
-              style="list-style-type:none;height:8rem;"
+              style="list-style-type:none;height:6rem;display: flex;justify-content: center;align-items: center;text-align: center;"
               @click="chooseitem(item.id)"
             >
-              <div style="display:flex; justify-content:center;flex-wrap:wrap">
-                <div style="width:100%;display:flex; justify-content:center;margin-top:1.6rem; ">
+              <div >
+                <div >
                   <i :class="item.icon" style="font-size:3rem;color:#ffffff"></i>
                 </div>
-                <div style="width:100%;display:flex; justify-content:center;">{{item.select}}</div>
+                <div >{{item.select}}</div>
               </div>
             </li>
           </template>
@@ -25,7 +25,8 @@
 
       <div class="logincontent">
         <Login v-show="login" ></Login>
-        <Forgetpass v-show="forgetPass" ></Forgetpass>
+        <messageLogin v-show="messageLogin"></messageLogin>
+        <Forgetpass v-show="forgetPass"></Forgetpass>
         <Register v-show="register" @registered="registered"></Register>
       </div>
     </div>
@@ -34,25 +35,29 @@
 
 <script>
 import Login from '../components/admine/login';
+import messageLogin from '../components/admine/messageLogin';
 import Forgetpass from '../components/admine/forgetpass';
 import Register from '../components/admine/register';
 export default {
   components:{
     Login,
     Forgetpass,
-    Register
+    Register,
+    messageLogin
   },
   data() {
     return {
       login:true,
       forgetPass:false,
       register:false,
+      messageLogin:false,
       activeName: "login",
       active: false,
       items: [
         { select: "登录",id:0, icon: "el-icon-user-solid" },
-        { select: "注册", id:1,icon: "el-icon-s-order" },
-        { select: "忘记密码", id:2,icon: "el-icon-s-release" }
+        { select: "管理员登录", id:1,icon: "el-icon-user" },
+        { select: "注册", id:2,icon: "el-icon-s-order" },
+        { select: "忘记密码", id:3,icon: "el-icon-s-release" }
       ]
     };
   },
@@ -61,6 +66,7 @@ export default {
     registered(value){
       console.log('登录')
       this.chooseitem(value);
+      
     },
     selectStyle(item) {
       var _this = this;
@@ -72,21 +78,29 @@ export default {
       });
     },
     outStyle(item) {
-      this.$set(item, "active", false);
+      // this.$set(item, "active", false);
     },
     chooseitem(item) {
       if (item == 0) {
           this.login=true;
           this.forgetPass=false;
           this.register=false;
+          this.messageLogin=false;
       } else if (item ==1) {
           this.login=false;
           this.forgetPass=false;
-          this.register=true;
-      } else {
-          this.login=false;
-          this.forgetPass=true;
           this.register=false;
+          this.messageLogin=true;
+      } else if(item ==2) {
+          this.login=false;
+          this.forgetPass=false;
+          this.register=true;
+          this.messageLogin=false
+      }else{
+        this.login=false;
+        this.forgetPass=true;
+        this.register=false;
+        this.messageLogin=false;
       }
     }
   }
@@ -133,7 +147,7 @@ export default {
   justify-content: center;
 }
 
-.active {
+.active{
   background: rgb(100, 136, 255);
 }
 

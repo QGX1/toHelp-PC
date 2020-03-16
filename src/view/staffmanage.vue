@@ -5,6 +5,7 @@
       element-loading-text="拼命加载中"
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba(0, 0, 0, 0.8)"
+      style="overflow: auto"
     >
       <h2 class="h1style">员工管理</h2>
       <el-table :data="staffData" style="width: 100%;margin-top:-1rem;" max-height="450">
@@ -144,8 +145,8 @@ export default {
         if (res.data.code == 0) {
           this.staffList = res.data.msg;
           this.staffData = res.data.msg;
-          this.loading=false;
         }
+        this.loading=false;
       });
     }
   },

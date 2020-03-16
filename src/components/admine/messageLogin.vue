@@ -8,7 +8,7 @@
       label-width="100px"
       class="demo-ruleForm"
     >
-      <h2 style="text-align:center">用户登录</h2>
+      <h2 style="text-align:center">管理员登录</h2>
       <el-form-item label="用户邮箱" prop="user_email" style="margin-bottom: 1.4rem;text-align:center;">
         <el-input v-model="ruleForm.user_email"></el-input>
       </el-form-item>
@@ -72,7 +72,7 @@ export default {
         user_password: "",
         // user_name: "",
         captcha: "",
-        user_limit: 2
+        user_limit: 3
       },
       rules: {
         user_password: [{ validator: validatePass, trigger: "blur" }],
@@ -105,7 +105,7 @@ export default {
                 "Content-Type": "application/x-www-form-urlencoded",
                 Authorization: res.data.token
               };
-              this.$router.push({ name: "News" });
+              this.$router.push({ name: "administratorsUser" });
             }
           });
         } else {

@@ -1,9 +1,9 @@
 <template>
   <div id="app" :style="{height:screenHeight}" :class="$route.meta.showMenu?'':'isshowMenu'">
-    <navigation v-show="$route.meta.showMenu"></navigation>
+    <navigation v-if="$route.meta.showMenu"></navigation>
     <div :class="[this.$store.state.isCollapse == true?'rightsizeclose':'rightsize']" 
     style="width:100%;" >
-     <headerlabel v-show="$route.meta.showMenu" 
+     <headerlabel v-if="$route.meta.showMenu" 
       @handelSearchValue='handelSearchValue'
      ></headerlabel>
      <router-view :searchValue='searchValue' v-if="isRouterAlive"/>

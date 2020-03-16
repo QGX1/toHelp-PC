@@ -1,6 +1,7 @@
 <template>
   <div class="rightContent1">
-    <div class="news"
+    <div
+      class="news"
       v-loading="loading"
       element-loading-text="拼命加载中"
       element-loading-spinner="el-icon-loading"
@@ -17,8 +18,12 @@
             v-model="search_name"
           ></el-input>
         </div>
-        <div class="wholebody wholebody-1 scroll" :style="{height:screenHeight}">
-          <div class="scrollbar">
+        <div
+          class="wholebody wholebody-1 scroll"
+          :style="{height:screenHeight}"
+          :class="friendsList.length>0?'':'backBar'"
+        >
+          <div class="scrollbar2">
             <AllUsers
               v-for="(item,index) in friendsList "
               :key="item._id"
@@ -34,14 +39,20 @@
         <!-- 显示头 -->
         <h3 class="h1style">{{targetUser.user_name?targetUser.user_name:'用户名'}}</h3>
         <!-- 显示聊天记录 -->
-        <div style="font-size: 0.4rem;" class="showNew wholebody wholebody-1 scroll">
+        <div
+          style="font-size: 0.4rem;"
+          class="showNew wholebody wholebody-1 scroll"
+          :style="{height:screenHeight-110+'px'}"
+        >
           <div style="padding-top:0.3rem" class="scrollbar">
             <div style="width:98%">
               <div class="content_wrap" v-for="item in msgRecordList" :key="item._id">
                 <!-- 其他人的聊天内容 -->
                 <div class="left_msg" v-if="item.infor_source==2">
-                  <img :src="targetUser.user_avatar?'http://192.168.43.177:8081/'+targetUser.user_avatar:'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'"
-                   alt="头像">
+                  <img
+                    :src="targetUser.user_avatar?'http://192.168.43.177:8081/'+targetUser.user_avatar:'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'"
+                    alt="头像"
+                  >
                   <span class="otherMsg">{{item.infor_msg}}</span>
                 </div>
                 <!-- 我的聊天内容 -->
@@ -55,7 +66,6 @@
               </div>
               <div class="position-box"></div>
             </div>
-            
           </div>
         </div>
         <!-- 输入框 -->
@@ -100,7 +110,7 @@ export default {
       infor_count2: 0,
       infor_id: "",
       indexValue: -1,
-      loading:true
+      loading: true
     };
   },
   created() {
@@ -110,7 +120,6 @@ export default {
     // 点击事件
     handelAddStaff(userData) {
       // 处理用户的数据
-      console.log("滚动");
       this.targetUser = userData.user;
       Vue.set(this, "indexValue", userData.indexValue);
       // 获取用户信息
@@ -123,10 +132,8 @@ export default {
     putInfor(index) {
       // console.log(this.user_id, this.firse_user_id);
       if (this.user_id == this.friendsList[index].user_id) {
-        console.log("修改记录条数1");
         Vue.set(this.friendsList[index], "infor_count", 0);
       } else {
-        console.log("修改记录条数2");
         //this.infor_count2 = 0;
         Vue.set(this.friendsList[index], "infor_count2", 0);
         // console.log(this.infor_count2)
@@ -139,7 +146,6 @@ export default {
       };
       // 修改记录条数
       this.putRequest("/api/infor/updateMsg", updataValue).then(res => {
-        console.log(res);
       });
     },
     submit() {},
@@ -147,7 +153,7 @@ export default {
     getUser() {
       if (this.userInfo.id) {
         this.getRequest(`/api/infor/msg/${this.userInfo.id}`).then(res => {
-          if (res.data.code == 0) this.loading=false;
+          if (res.data.code == 0) this.loading = false;
           this.friendsList = res.data.msg;
           this.allFriends = res.data.msg;
         });
@@ -175,17 +181,13 @@ export default {
     savaInfo() {
       let infor_source;
       //console.log('8989',this)
-      console.log("保存发送的消息", this.indexValue);
       if (this.friendsList[this.indexValue].user_id == this.user_id) {
-        console.log("第一人");
         this.friendsList[this.indexValue].infor_count = 0;
         this.friendsList[this.indexValue].infor_count2++;
       } else {
-        console.log("第二人");
         this.friendsList[this.indexValue].infor_count++;
         this.friendsList[this.indexValue].infor_count2 = 0;
       }
-      console.log("消息发送", this.friendsList);
       if (this.friendsList[this.indexValue].user_id) {
         if (this.user_id == this.friendsList[this.indexValue].user_id) {
           infor_source = 1; //第一人
@@ -207,17 +209,14 @@ export default {
         infor_count2: this.friendsList[this.indexValue].infor_count2
       };
       this.postRequest("/api/infor/addInfor", msgObj).then(res => {
-        console.log("数据保存", res);
+      //  console.log("数据保存", res);
       });
-      // saveInfoRecord(msgObj).then(res => {
-      //   //console.log(8989,res)
-      // });
     },
     // 获取消息列表
     getMsg() {
       let user_id = this.user_id;
 
-      console.log(this.userInfo.id);
+     // console.log(this.userInfo.id);
       if (user_id) {
         this.getRequest(`/api/infor/msg/${user_id}`).then(res => {
           // let result=res.data.msg;
@@ -262,16 +261,12 @@ export default {
           } else {
             this.msgRecordList = [];
           }
-          // console.log(result[0].user_id)
-          // console.log(user_id)
-          // console.log('sss',this.msgRecordList)
         });
       }
-      //console.log(this.targetUser.user_id)
     },
     setMsgCount(message) {
       // 判断消息列表中是否存在该用户
-      console.log("服务端发送消息到客户端");
+     // console.log("服务端发送消息到客户端");
       this.friendsList.forEach((item, index) => {
         if (
           (item.target_users._id == message.from &&
@@ -279,9 +274,9 @@ export default {
           (item.target_users._id == this.user_id &&
             item.user_id == message.from)
         ) {
-          console.log("发送接收");
+         // console.log("发送接收");
           if (this.targetUser._id != message.from) {
-            console.log("不在当前聊天窗口");
+          //  console.log("不在当前聊天窗口");
             if (this.user_id == item.user_id) {
               item.infor_count++;
             } else {
@@ -299,12 +294,9 @@ export default {
   },
   mounted() {
     // 获取所有用户信息
-    console.log(window.sessionStorage.getItem("token"));
     this.user_id = this.userInfo.id;
     this.getUser();
     // 服务端推送消息给客户端
-    //this.getServeNew();
-    // console.log("用户信息", this.user_id);
     // console.log("服务端消息推送");
     WSocket.init(
       { user: this.user_id },
@@ -327,16 +319,15 @@ export default {
         console.error();
       }
     );
-    // console.log(222, this.user_id);
-    // 获取消息数据
-    //this.getMsg();
   },
   watch: {
     search_name(newVlu, oldVlu) {
       //console.log(newVlu)
       this.friendsList = this.allFriends.filter(item => {
-        //console.log(333,item)
-        return item.target_users.user_name.indexOf(newVlu) != -1;
+        return (
+          item.target_users.user_name.indexOf(newVlu) != -1 ||
+          item.users.user_name.indexOf(newVlu) != -1
+        );
       });
     }
   }
@@ -359,7 +350,7 @@ export default {
   padding: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
   margin: 2rem;
-  border-radius: 1%;
+  border-radius: 5px;
   background: #fff;
 }
 .h1style {
@@ -378,7 +369,7 @@ export default {
 } */
 .userList {
   width: 25%;
-  height: 100%;
+  /* height: 100%; */
   /* margin: 1rem auto; */
   border: 0.01rem solid #eee;
   padding: 0.5rem;
@@ -388,8 +379,12 @@ export default {
 .scrollbar {
   width: 100%;
   margin: 0 auto;
-  /* margin: 40px 60px; */
-  /* background: white; */
+}
+.backBar {
+  background-image: url(/static/img/p2.7c8be43.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .wholebody-1::-webkit-scrollbar {
@@ -407,6 +402,10 @@ export default {
   -webkit-box-shadow: inset 0 0 5px #ccc;
   border-radius: 10px;
   background: #ededed;
+}
+.scrollbar2 {
+  width: 100%;
+  margin: 0 auto;
 }
 .scroll {
   overflow-y: auto;

@@ -11,7 +11,7 @@
       </div>
       <div class="headsourceinput">
         <mu-col>
-          <mu-auto-complete v-model="seachValue" placeholder='输入当前要查找的内容'></mu-auto-complete>
+          <mu-auto-complete v-model="seachValue" placeholder="输入当前要查找的内容"></mu-auto-complete>
         </mu-col>
       </div>
     </div>
@@ -19,17 +19,27 @@
       class="headsource"
       style="border-right: 0.01rem solid rgba(175, 179, 187, 0.63);border-left: 0.01rem solid rgba(175, 179, 187, 0.63);"
     >
-      <el-badge :value="12" class="item" type="primary">
+      <el-badge class="item" type="primary" v-if='userInfo.user_limit!=3'>
         <img
           src="../assets/notice.png"
           style="width:23px;height:23px;margin:10px 20px 20px 25px;margin-left:25px;"
+          @click="drawer = true"
+        >
+      </el-badge>
+      <el-badge class="item" type="primary" :value="messageList" v-else>
+        <img
+          src="../assets/notice.png"
+          style="width:23px;height:23px;margin:10px 20px 20px 25px;margin-left:25px;"
+          @click="drawer = true"
         >
       </el-badge>
     </div>
     <div class="myself">
       <div class="block" style="margin:5px 12px 0 15px;">
-        <el-avatar shape="square" :size="39" 
-        :src="userInfo.user_avatar?'http://192.168.43.177:8081/'+userInfo.user_avatar:'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"
+        <el-avatar
+          shape="square"
+          :size="39"
+          :src="userInfo.user_avatar?'http://192.168.43.177:8081/'+userInfo.user_avatar:'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"
         ></el-avatar>
       </div>
     </div>
@@ -39,34 +49,40 @@
       </strong>
     </div>
     <div class="myself">
-      <!-- <el-popover
-        placement="bottom"
-        title="标题"
-        width="200"
-        trigger="click"
-        content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
-      > -->
-        <el-dropdown>
-          <span class="el-dropdown-link">
-            <el-button
-              size='mini'
-              slot="reference"
-              style="border: none;background-color: transparent;outline: none;padding:0px;"
+      <el-dropdown>
+        <span class="el-dropdown-link">
+          <el-button
+            size="mini"
+            slot="reference"
+            style="border: none;background-color: transparent;outline: none;padding:0px;"
+          >
+            <img
+              src="../assets/down.png"
+              style="width:12px;height:12px;margin:25px 20px 20px 10px;"
             >
-              <img src="../assets/down.png" style="width:12px;height:12px;margin:25px 20px 20px 10px;">
-            </el-button>
-          </span>
-          <el-dropdown-menu slot="dropdown"  >
-            <el-dropdown-item @click.native="logOut2">退出登录</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      <!-- </el-popover> -->
+          </el-button>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item @click.native="logOut2">退出登录</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
+    <div v-if="userInfo.user_limit==3">
+      <!-- 内层轨道 -->
+      <div>
+        <el-drawer title="投诉列表" :visible.sync="drawer" size="25%">
+          <div>
+            <leaveMsg v-for="(item,index) in leaveList" :key="item._id" :leaveItem="item"></leaveMsg>
+          </div>
+        </el-drawer>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import {mapActions,mapGetters,mapMutations,mapState} from 'Vuex'
+import { mapActions, mapGetters, mapMutations, mapState } from "Vuex";
+import leaveMsg from "../components/Administrators/leaveMessage";
 import Vue from "vue";
 export default {
   name: "headerlabel",
@@ -76,44 +92,54 @@ export default {
         "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
       isCollapse: true,
       seachValue: "",
-      isGo: true
+      isGo: true,
+      drawer: false,
+      messageList: 0,
+      leaveList: [] //举报列表
     };
   },
-  computed:{
-    ...mapState(['userInfo'])
+  components: {
+    leaveMsg
   },
-  mounted(){
-    console.log(222,this.userInfo)
-    // 获取当前路径
-    console.log(333,this.$route.path)
+  computed: {
+    ...mapState(["userInfo"])
+  },
+  mounted() {
+    if (this.userInfo.user_limit == 3) {
+      this.getRequest("/api/complaint/getComplaint", {
+        users: this.userInfo.id,
+        user_limit: this.userInfo.user_limit
+      }).then(res => {
+        if (res.data.code == 0) {
+          this.leaveList = res.data.msg;
+          let newArr=this.leaveList.filter(item=>{
+            return item.adminstHandel==0;
+          });
+          this.messageList=newArr.length;
+        }
+      });
+    }
   },
   methods: {
-    ...mapActions(['logOut']),
+    ...mapActions(["logOut"]),
     shownavigation() {
       this.isGo = !this.isGo;
       this.$store.state.isCollapse = !this.$store.state.isCollapse;
     },
-    logOut2(){
-      console.log('退出登录');
-      this.$router.replace({name:'Login'});
+    logOut2() {
+      this.$router.replace({ name: "Login" });
       this.logOut();
     }
   },
   watch: {
-    seachValue(newVlu,oldVlu){
-      //console.log('searchValue',newVlu);
+    seachValue(newVlu, oldVlu) {
       //将值传递给父组建
-      this.$emit('handelSearchValue',newVlu);
+      this.$emit("handelSearchValue", newVlu);
     },
-    '$route.path':function(newVlu,oldVlu){
-      //console.log('lable',newVlu);
-      
-      //this.$data.seachValue=='';
-      Vue.set(this,'seachValue','');
-      // console.log(this)
-      // console.log(this.seachValue)
-    },
-  },
+    "$route.path": function(newVlu, oldVlu) {
+      Vue.set(this, "seachValue", "");
+    }
+  }
 };
 </script>
 
@@ -172,5 +198,40 @@ p {
   /* width:100px; */
   word-break: keep-all;
   white-space: nowrap;
+}
+</style>
+<style>
+.mu-badge-circle {
+  width: 18px;
+  height: 18px;
+}
+
+.mu-badge-float {
+  top: -7px;
+  right: -8px;
+}
+
+.mu-badge {
+  font-size: 10px;
+}
+/* 外层轨道 */
+.el-drawer__container ::-webkit-scrollbar {
+  width: 0.2rem;
+  height: 100%;
+  background: #eee;
+  border-radius: 0.1rem;
+}
+/* 内层轨道 */
+.el-drawer {
+  height: 100% !important;
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+}
+.el-drawer::-webkit-scrollbar-thumb {
+  display: block;
+  width: 0.06rem;
+  margin: 0 auto;
+  border-radius: 0.1rem;
+  background: #ccc;
 }
 </style>

@@ -54,15 +54,6 @@ export default {
 
   data() {
     return {
-      // userInfo: {
-      //   user_name: "丘桂娴",
-      //   user_email: "6888@qq.com",
-      //   user_phone: "15918849435",
-      //   user_company_position: "阿里巴巴CEO",
-      //   user_company: "阿里巴巴",
-      //   user_limit:2,
-      //   user_avatar:"http://a3.att.hudong.com/35/34/19300001295750130986345801104.jpg"
-      // },
       newUserInfo:{},
       reg: new RegExp(
         "^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$"
@@ -100,10 +91,7 @@ export default {
         "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
     };
   },
-  mounted(){
-    
-    console.log(222,this.newUserInfo)
-  },
+  mounted(){},
   computed:{
     ...mapState(['userInfo'])
   },
@@ -111,25 +99,21 @@ export default {
     ...mapActions(['getUser']),
   // 修改头像的值
     updataAvatar(value){
-      console.log(value)
       this.userInfo.user_avatar=value.imgUrl2;
-      Vue.set(this.userInfo,'user_avatar',value.imgUrl2)
+      this.$set(this.userInfo,'user_avatar',value.imgUrl2)
     },
     submit() {
-      console.log("提交");
+      // console.log("提交");
       this.$refs.form.validate().then(result => {
         if (result == true) {
-          console.log(this.userInfo);
           // 向服务端发送修改用户信息请求
           this.putRequest('/api/user/updateUserInfor',this.userInfo).then(res=>{
-            console.log(11,res);
             this.$message(res.data.msg)
           })
         }
       });
     },
     clear() {
-      console.log("重置");
       this.$refs.form.clear();
       this.userInfo = {
         user_name: "",

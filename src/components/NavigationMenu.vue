@@ -6,7 +6,7 @@
   >
     <div class="scrollbar">
       <div>
-        <img src="../assets/logo.png" style="height:4rem;width:16rem" />
+        <img src="../assets/logo.png" style="height:4rem;width:16rem">
       </div>
       <el-menu
         default-active="1"
@@ -18,23 +18,22 @@
         :collapse="this.$store.state.isCollapse"
         router
       >
-        <el-menu-item index="/news">
+        <el-menu-item index="/news" v-if="userInfo.user_limit!=3">
           <i class="el-icon-s-claim" style="font-size:25px;"></i>
-          <span slot="title" >信息通知</span>
+          <span slot="title">信息通知</span>
         </el-menu-item>
-        <el-submenu index="2">
+        <el-submenu index="2" v-if="userInfo.user_limit!=3">
           <template slot="title">
             <i class="el-icon-edit-outline" style="font-size:25px;"></i>
             <span slot="title">招聘信息管理</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="/publishRec" >发布招聘信息</el-menu-item>
+            <el-menu-item index="/publishRec">发布招聘信息</el-menu-item>
             <el-menu-item index="/managePublishRecruitment">管理招聘信息</el-menu-item>
             <!-- <el-menu-item index="2-3">班级信息管理</el-menu-item> -->
           </el-menu-item-group>
         </el-submenu>
-
-        <el-submenu index="3">
+        <el-submenu index="3" v-if="userInfo.user_limit!=3">
           <template slot="title">
             <i class="el-icon-tickets" style="font-size:25px;"></i>
             <span slot="title">员工信息管理</span>
@@ -45,7 +44,19 @@
             <el-menu-item index="/checkWork">考勤信息</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <el-submenu index="4">
+        <!-- 管理员权限 -->
+        <el-submenu index="4" v-if="userInfo.user_limit==3">
+          <template slot="title">
+            <i class="el-icon-edit-outline" style="font-size:25px;"></i>
+            <span slot="title">管理员权限</span>
+          </template>
+          <el-menu-item-group >
+            <el-menu-item index="/administratorsUser">用户管理</el-menu-item>
+            <el-menu-item index="/administratorsJob">岗位管理</el-menu-item>
+            <el-menu-item index="/administratorsShare">分享管理</el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
+        <el-submenu index="5">
           <template slot="title">
             <i class="el-icon-s-custom" style="font-size:25px;"></i>
             <span slot="title">个人信息</span>
@@ -55,10 +66,6 @@
             <el-menu-item index="/changepsw">个人密码修改</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <!-- <el-menu-item index="5">
-          <i class="el-icon-coin" style="font-size:25px;"></i>
-          <span slot="title">数据导入</span>
-        </el-menu-item> -->
       </el-menu>
     </div>
   </div>
@@ -69,24 +76,26 @@ export default {
   name: "navigation",
   data() {
     return {
-      screenHeight: ""
+      screenHeight: "",
+      userInfo: {}
     };
-  },
-  methods: {
-    goto(){
-      console.log('gogo')
-    },
-    handleOpen(key, keyPath) {
-      console.log('open')
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log('close')
-      console.log(key, keyPath);
-    }
   },
   created() {
     this.screenHeight = window.screen.availHeight - 70 + "px";
+  },
+  mounted() {
+    this.userInfo = this.$store.state.userInfo;
+    // console.log('用户信息',this.userInfo);
+  },
+  methods: {
+    handleOpen(key, keyPath) {
+      // console.log('open')
+      // console.log(key, keyPath);
+    },
+    handleClose(key, keyPath) {
+      // console.log('close')
+      // console.log(key, keyPath);
+    }
   }
 };
 </script>

@@ -31,7 +31,7 @@ instance.interceptors.response.use(function(data) {
   } else if (err.response.status == 403) {
     Message.error({ message: '权限不足,请联系管理员!' });
   } else if (err.response.status == 401) {
-    Message.error({ message: err.response.data.msg });
+    Message.error({ message:'没登录' });
   } else {
     if (err.response.data.msg) {
       Message.error({ message: err.response.data.msg });
@@ -43,12 +43,13 @@ instance.interceptors.response.use(function(data) {
 
 // 封装ajax接口
 
-export const getRequest = (url) => {
+export const getRequest = (url,value) => {
   //console.log("手机验证码");
   //console.log()
   return instance({
     method: 'get',
-    url: url
+    url: url,
+    params:{value}
   });
 }
 export const postRequest = (url, data) => {
