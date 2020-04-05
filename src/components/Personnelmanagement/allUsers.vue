@@ -1,11 +1,11 @@
 <template>
-    <div id="allUser">
+    <div id="allUser" v-if="user">
         <div class="content" @click="handelStaff({user,indexValue})">
             <!-- 头像 -->
             <el-avatar
                 shape="square"
                 size="large"
-                :src="user.user_avatar?'http://192.168.43.177:8081/'+user.user_avatar:'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'"
+                :src="user.user_avatar?'http://39.101.193.187:8080/pictures/'+user.user_avatar:'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'"
                 style="margin-left: 0.2rem;"
             ></el-avatar>
             <span class="count" v-show="infor_count">{{infor_count}}</span>

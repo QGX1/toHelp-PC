@@ -55,10 +55,8 @@
             :filter-method="filterHandler"
           ></el-table-column>
           <el-table-column label="工作经验要求" align="center" prop="job_ask_for"></el-table-column>
-          <el-table-column align="right" min-width="120%" label="操作">
-            <!-- <template slot="header" slot-scope="scope">
-              <el-input v-model="search" size="medium" style="" placeholder="输入岗位名称搜索"/>
-            </template>-->
+          <el-table-column label="是否审核" align="center" prop="job_examine"></el-table-column>
+          <el-table-column align="right" min-width="120%" label="操作">s
             <template slot-scope="scope">
               <el-button
                 size="mini"
@@ -175,7 +173,6 @@ export default {
   },
   methods: {
     handleEdit(index, row) {
-      // console.log(index, row);
       this.$router.push({ path: "/editRecruitment", query: { row } });
     },
     handleJobTime(index) {
@@ -309,7 +306,7 @@ export default {
 .scrollbar {
   width: 100%;
   margin: 0 auto;
-  margin: 40px 60px;
+  margin: 2rem;
   background: white;
 }
 

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import home from '@/view/home'
 import PublishRec from "@/view/publishRecruitment.vue"
 import ManagePublishRecruitment from "@/view/managePublishRecruitment.vue"
 import Changeself from "@/view/changeself.vue"
@@ -10,7 +9,7 @@ import store from "../store/index";
 Vue.use(Router)
 
 const router = new Router({
-  mode: "history",
+  mode: "hash",
   base: process.env.BASE_URL,//不写的话meta属性不生效
   routes: [
     {
@@ -27,14 +26,6 @@ const router = new Router({
       component: () => import('@/view/login'),
       meta: {
         showMenu: false
-      }
-    },
-    {
-      path: '/home',
-      name: 'Home',
-      component: home,
-      meta: {
-        showMenu: true
       }
     },
     {

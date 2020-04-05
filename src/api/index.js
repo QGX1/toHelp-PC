@@ -8,7 +8,7 @@ export let instance = Axios.create({
     "content-type": "application/x-www-form-urlencoded",
     'Authorization': window.sessionStorage.getItem('token')//指令
   },
-  baseURL: "",//白名单
+  baseURL: "http://39.101.193.187:5001/",//白名单
   timeout:6000
 });
 // 请求拦截器

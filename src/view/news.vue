@@ -23,7 +23,7 @@
           :style="{height:screenHeight}"
           :class="friendsList.length>0?'':'backBar'"
         >
-          <div class="scrollbar2">
+          <div class="scrollbar2" v-if="friendsList.length>0">
             <AllUsers
               v-for="(item,index) in friendsList "
               :key="item._id"
@@ -50,7 +50,7 @@
                 <!-- 其他人的聊天内容 -->
                 <div class="left_msg" v-if="item.infor_source==2">
                   <img
-                    :src="targetUser.user_avatar?'http://192.168.43.177:8081/'+targetUser.user_avatar:'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'"
+                    :src="targetUser.user_avatar?'http://39.101.193.187:8080/pictures/'+targetUser.user_avatar:'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'"
                     alt="头像"
                   >
                   <span class="otherMsg">{{item.infor_msg}}</span>
@@ -59,7 +59,7 @@
                 <div class="right_msg" v-if="item.infor_source==1">
                   <span class="mineMsg">{{item.infor_msg}}</span>
                   <img
-                    :src="userInfo.user_avatar?'http://192.168.43.177:8081/'+userInfo.user_avatar:'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'"
+                    :src="userInfo.user_avatar?'http://39.101.193.187:8080/pictures/'+userInfo.user_avatar:'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'"
                     alt="头像"
                   >
                 </div>

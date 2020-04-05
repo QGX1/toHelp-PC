@@ -97,61 +97,6 @@
         <el-form-item label="校园勤工岗" style="margin-left:2rem">
           <el-switch v-model="ruleForm.job_nature"></el-switch>
         </el-form-item>
-        <!-- 岗位描述div -->
-        <!-- <div style="width:50%">
-          <el-form-item label="岗位描述" prop="job_descript" style="margin:0 0px 23px 0;">
-            <el-input v-model="ruleForm.job_descript" clearable  style="width:12.5rem"></el-input>
-          </el-form-item>
-          <el-form
-            :model="dynamicValidateForm"
-            ref="dynamicValidateForm"
-            label-width="100px"
-            class="demo-ruleForm"
-          >
-            <el-form-item
-              v-for="(domain, index) in dynamicValidateForm.domains"
-              :label="'描述'"
-              :key="domain.key"
-              :prop="'domains.' + index + '.value'"
-              :rules="{
-               required: true, message: '描述不能为空', trigger: 'blur'
-              }"
-            >
-              <el-input v-model="domain.value" style="width:250px;"></el-input>
-              <i class="el-icon-delete" @click.prevent="removeDomain(domain)"></i>
-              <i class="el-icon-circle-plus-outline" @click="addDomain"></i>
-            </el-form-item>
-            <el-form-item></el-form-item>
-          </el-form>
-        </div> -->
-
-        <!-- 职业描述div -->
-        <!-- <div style="width:50%;margin-left:-8rem;">
-          <el-form-item label="职业描述" prop="job_skill" style="margin:0 0px 23px 0;">
-            <el-input v-model="ruleForm.job_skill" style="width:250px;"></el-input>
-          </el-form-item>
-          <el-form
-            :model="newdynamicValidateForm"
-            ref="newdynamicValidateForm"
-            label-width="100px"
-            class="demo-ruleForm"
-          >
-            <el-form-item
-              v-for="(domain, index) in newdynamicValidateForm.domains"
-              :label="'描述'"
-              :key="domain.key"
-              :prop="'domains.' + index + '.value'"
-              :rules="{
-               required: true, message: '描述不能为空', trigger: 'blur'
-             }"
-            >
-              <el-input v-model="domain.value" style="width:250px;"></el-input>
-              <i class="el-icon-delete" @click.prevent="removeDomain(domain)"></i>
-              <i class="el-icon-circle-plus-outline" @click="newaddDomain"></i>
-            </el-form-item>
-            <el-form-item></el-form-item>
-          </el-form>
-        </div> -->
 
         <el-form-item style="width:80%;text-align:center">
           <el-button type="primary" @click="submitForm('ruleForm')">立即发布</el-button>
@@ -213,11 +158,11 @@ export default {
         ],
         job_descript: [
           { required: true, message: "请输入岗位描述", trigger: "blur" },
-          { min: 2, max: 50, message: "长度在 2 到 50 个字符", trigger: "change" }
+        //  { min: 2, max: 50, message: "长度在 2 到 50 个字符", trigger: "change" }
         ],
         job_skill: [
           { required: true, message: "请输入职位描述", trigger: "blur" },
-          { min: 2, max: 50, message: "长度在 2 到 50 个字符", trigger: "change" }
+          //{ min: 2, max: 50, message: "长度在 2 到 50 个字符", trigger: "change" }
         ],
         job_nature:[
           {required:false,}

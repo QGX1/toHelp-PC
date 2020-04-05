@@ -2,7 +2,7 @@
   <div id="updataAvatar">
     <el-avatar
       :size="100"
-      :src="user_avatar?'http://192.168.43.177:8081/'+user_avatar:'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"
+      :src="user_avatar?'http://39.101.193.187:8080/pictures/'+user_avatar:'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"
     ></el-avatar>
     <el-button
       type="success"

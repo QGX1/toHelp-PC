@@ -22,8 +22,8 @@
                     v-for="(imgItem,index) in item.dynamic_imgs"
                     :key="index"
                     style="width: 100px; height: 100px;margin-left:0.5rem"
-                    :src="'http://192.168.43.177:8081/'+imgItem"
-                    :preview-src-list="['http://192.168.43.177:8081/'+imgItem]"
+                    :src="'http://39.101.193.187:8080/pictures/'+imgItem"
+                    :preview-src-list="['http://39.101.193.187:8080/pictures/'+imgItem]"
                     lazy
                   ></el-image>
                 </div>

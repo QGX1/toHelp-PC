@@ -11,15 +11,16 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      //设置跨域
-      "/api": {
-        target: "  http://192.168.43.177:5001", //服务端地址
-        ws: true, // 是否启用websockets
-        changOrigin: true, //开启代理
-      }
+      // //设置跨域
+      // "/api": {
+      //   target: "http://127.0.0.1:5001", //服务端地址
+      //   ws: true, // 是否启用websockets
+      //   changOrigin: true, //开启代理,允许跨域
+      // }
     },
 
     // Various Dev Server settings
+    // host: '0.0.0.0', // can be overwritten by process.env.HOST
     host: '192.168.43.177', // can be overwritten by process.env.HOST
     port: 7001, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
@@ -50,7 +51,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps

@@ -3,7 +3,7 @@
     <!-- 主要显示的内容 -->
     <div class="leaveContent">
       <img
-        :src="leaveItem.users.user_avatar?'http://192.168.43.177:8081/'+leaveItem.users.user_avatar:'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"
+        :src="leaveItem.users.user_avatar?'http://39.101.193.187:8080/pictures/'+leaveItem.users.user_avatar:'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"
         alt="用户头像"
         class="userAvatar"
       >
@@ -37,8 +37,8 @@
             >
               <el-image
                 style="width: 100px; height: 100px"
-                :src="'http://192.168.43.177:8081/'+imgItem"
-                :preview-src-list="['http://192.168.43.177:8081/'+imgItem]"
+                :src="'http://39.101.193.187:8080/pictures/'+imgItem"
+                :preview-src-list="['http://39.101.193.187:8080/pictures/'+imgItem]"
               ></el-image>
             </div>
           </el-form-item>

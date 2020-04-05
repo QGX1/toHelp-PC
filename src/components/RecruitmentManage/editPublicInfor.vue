@@ -86,7 +86,6 @@
         </el-form-item>
         
         <el-form-item label="职位描述" prop="job_skill" >
-            <!-- <el-input v-model="ruleForm.job_descript" clearable  style="width:12.5rem"></el-input> -->
           <el-input type="textarea"
             wrap='hard'
             :autosize="{ minRows: 2, maxRows: 3}"
@@ -97,62 +96,6 @@
         <el-form-item label="校园勤工岗" style="margin-left:2rem">
           <el-switch v-model="ruleForm.job_nature"></el-switch>
         </el-form-item>
-        <!-- 岗位描述div -->
-        <!-- <div style="width:50%">
-          <el-form-item label="岗位描述" prop="job_descript" style="margin:0 0px 23px 0;">
-            <el-input v-model="ruleForm.job_descript" clearable  style="width:12.5rem"></el-input>
-          </el-form-item>
-          <el-form
-            :model="dynamicValidateForm"
-            ref="dynamicValidateForm"
-            label-width="100px"
-            class="demo-ruleForm"
-          >
-            <el-form-item
-              v-for="(domain, index) in dynamicValidateForm.domains"
-              :label="'描述'"
-              :key="domain.key"
-              :prop="'domains.' + index + '.value'"
-              :rules="{
-               required: true, message: '描述不能为空', trigger: 'blur'
-              }"
-            >
-              <el-input v-model="domain.value" style="width:250px;"></el-input>
-              <i class="el-icon-delete" @click.prevent="removeDomain(domain)"></i>
-              <i class="el-icon-circle-plus-outline" @click="addDomain"></i>
-            </el-form-item>
-            <el-form-item></el-form-item>
-          </el-form>
-        </div> -->
-
-        <!-- 职业描述div -->
-        <!-- <div style="width:50%;margin-left:-8rem;">
-          <el-form-item label="职业描述" prop="job_skill" style="margin:0 0px 23px 0;">
-            <el-input v-model="ruleForm.job_skill" style="width:250px;"></el-input>
-          </el-form-item>
-          <el-form
-            :model="newdynamicValidateForm"
-            ref="newdynamicValidateForm"
-            label-width="100px"
-            class="demo-ruleForm"
-          >
-            <el-form-item
-              v-for="(domain, index) in newdynamicValidateForm.domains"
-              :label="'描述'"
-              :key="domain.key"
-              :prop="'domains.' + index + '.value'"
-              :rules="{
-               required: true, message: '描述不能为空', trigger: 'blur'
-             }"
-            >
-              <el-input v-model="domain.value" style="width:250px;"></el-input>
-              <i class="el-icon-delete" @click.prevent="removeDomain(domain)"></i>
-              <i class="el-icon-circle-plus-outline" @click="newaddDomain"></i>
-            </el-form-item>
-            <el-form-item></el-form-item>
-          </el-form>
-        </div> -->
-
         <el-form-item style="width:80%;text-align:center">
           <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
           <el-button
@@ -170,19 +113,7 @@ import {mapState} from 'Vuex'
 export default {
   data() {
     return {
-      ruleForm: {
-        // job_post: "",//岗位名称
-        // job_salary: "",//薪资
-        // job_site: "",//地址
-        // job_ask_for: "",//经历要求
-        // job_educat: "",//学历 
-        // job_descript: "",//描述
-        // job_skill: "",//技能
-        // job_nature:false,//
-        // longitude:'',
-        // latitude:'',//经纬度
-        // users:'',//发布者的id
-      },
+      ruleForm: {},
       visible: false,
       ak: "PIvUCvE1HdkGb6baKec54Ikp3EUNtgb9",
       address: "",
@@ -213,11 +144,11 @@ export default {
         ],
         job_descript: [
           { required: true, message: "请输入岗位描述", trigger: "blur" },
-          { min: 2, max: 50, message: "长度在 2 到 50 个字符", trigger: "change" }
+          // { min: 2, max: 50, message: "长度在 2 到 50 个字符", trigger: "change" }
         ],
         job_skill: [
           { required: true, message: "请输入职位描述", trigger: "blur" },
-          { min: 2, max: 50, message: "长度在 2 到 50 个字符", trigger: "change" }
+          // { min: 2, max: 50, message: "长度在 2 到 50 个字符", trigger: "change" }
         ],
         job_nature:[
           {required:false,}

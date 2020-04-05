@@ -20,7 +20,7 @@
         <img
           ref="captcha"
           class="get_verification"
-          src=" http://192.168.43.177:5001/api/user/verify"
+          src=" http://39.101.193.187:5001/api/user/verify"
           @click="getCaptchaCode"
         >
       </el-form-item>
@@ -87,7 +87,7 @@ export default {
     // 点击获取验证码
     getCaptchaCode() {
       this.$refs.captcha.src =
-        " http://192.168.43.177:5001/api/user/verify?time=" + new Date();
+        " http://39.101.193.187:5001/api/user/verify?time=" + new Date();
     },
     //登录方法
     submitForm(formName) {
