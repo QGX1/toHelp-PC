@@ -79,10 +79,10 @@ export default {
         "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
     };
   },
-  mounted(){
+  created(){
     console.log(222,this.$route.params);
-    this.workInfor.work_name=this.$route.params.staff.staff_name;
-    this.workInfor.work_email= this.$route.params.staff.staff_email;
+    this.workInfor.work_name=this.$route.params.staff.staff_id.user_name;
+    this.workInfor.work_email= this.$route.params.staff.staff_id.user_email;
     this.workInfor.staffs=this.$route.params.staff._id;
     this.workInfor.users=this.$route.params.staff.users;
   },

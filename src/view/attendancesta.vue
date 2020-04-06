@@ -8,8 +8,8 @@
       element-loading-background="rgba(0, 0, 0, 0.8)"
     >
       <el-table :data="attendanceData" style="width: 100%" max-height="480">
-        <el-table-column fixed prop="staffs.staff_name" label="姓名" width="150px"></el-table-column>
-        <el-table-column prop="staffs.staff_email" label="邮箱" width="180px"></el-table-column>
+        <el-table-column fixed prop="staffs.staff_id.user_name" label="姓名" width="150px"></el-table-column>
+        <el-table-column prop="staffs.staff_id.user_email" label="邮箱" width="180px"></el-table-column>
         <el-table-column
           prop="work_time"
           label="考勤日期"

@@ -81,11 +81,11 @@ export default {
       }
     };
   },
-  mounted() {
+  created() {
     // console.log('123',this.searchValue)
     // console.log(123, this.$route.params.attendance);
-      this.workInfor.work_name = this.$route.params.attendance.staffs.staff_name;
-      this.workInfor.work_email = this.$route.params.attendance.staffs.staff_email;
+      this.workInfor.work_name = this.$route.params.attendance.staffs.staff_id.user_name;
+      this.workInfor.work_email = this.$route.params.attendance.staffs.staff_id.user_email;
       this.workInfor._id = this.$route.params.attendance._id;
       this.workInfor.work_time=this.$route.params.attendance.work_time;
       this.workInfor.work_hours=this.$route.params.attendance.work_hours;

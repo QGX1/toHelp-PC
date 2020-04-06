@@ -55,7 +55,7 @@ export default {
       tableData: [],
       filterTableData: [],
       search: "",
-      totalNum: 1000, //分页的码数
+      totalNum: 0, //分页的码数
       timechoose: [], //页面上筛选时间的选择器
       // pageSize: 8, //设置每页显示条目个数为10
       // currentPage: 1, //设置当前页默认为1

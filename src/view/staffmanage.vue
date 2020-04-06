@@ -9,9 +9,9 @@
     >
       <h2 class="h1style">员工管理</h2>
       <el-table :data="staffData" style="width: 100%;margin-top:-1rem;" max-height="450">
-        <el-table-column fixed prop="staff_name" label="姓名" width="120"></el-table-column>
-        <el-table-column prop="staff_email" label="邮箱" width="150"></el-table-column>
-        <el-table-column prop="staff_phone" label="联系电话" width="120"></el-table-column>
+        <el-table-column fixed prop="staff_id.user_name" label="姓名" width="120"></el-table-column>
+        <el-table-column prop="staff_id.user_email" label="邮箱" width="150"></el-table-column>
+        <el-table-column prop="staff_id.user_phone" label="联系电话" width="120"></el-table-column>
         <el-table-column prop="staff_position" label="岗位" width="150"></el-table-column>
         <el-table-column
           prop="staff_quit"

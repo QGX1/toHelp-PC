@@ -12,14 +12,14 @@
             label-position="left"
             label-width="100"
           >
-            <mu-form-item label="员工名" prop="staff_name" :rules="staffInforRules.staffNameRules">
-              <mu-text-field v-model="staffInfor.staff_name" prop="staff_name" disabled></mu-text-field>
+            <mu-form-item label="员工名" prop="staff_id.user_name" :rules="staffInforRules.staffNameRules">
+              <mu-text-field v-model="staffInfor.staff_id.user_name" prop="staff_id.staff_name" disabled></mu-text-field>
             </mu-form-item>
-            <mu-form-item label="员工邮箱" prop="staff_email" :rules="staffInforRules.staffEmailRules">
-              <mu-text-field v-model="staffInfor.staff_email" prop="staff_email" disabled></mu-text-field>
+            <mu-form-item label="员工邮箱" prop="staff_id.user_email" :rules="staffInforRules.staffEmailRules">
+              <mu-text-field v-model="staffInfor.staff_id.user_email" prop="staff_email" disabled></mu-text-field>
             </mu-form-item>
-            <mu-form-item label="员工手机号码" prop="staff_phone" :rules="staffInforRules.staffPhoneRules">
-              <mu-text-field v-model="staffInfor.staff_phone" prop="staff_phone" disabled></mu-text-field>
+            <mu-form-item label="员工手机号码" prop="staff_id.user_phone" :rules="staffInforRules.staffPhoneRules">
+              <mu-text-field v-model="staffInfor.staff_id.user_phone" prop="staff_phone" disabled></mu-text-field>
             </mu-form-item>
             <mu-form-item label="员工岗位" prop="staff_position" :rules="staffInforRules.staffPositionRules">
               <mu-text-field v-model="staffInfor.staff_position" prop="staff_position"></mu-text-field>
@@ -55,14 +55,7 @@ export default {
   },
   data() {
     return {
-      staffInfor: {
-        // staff_name: "丘桂娴",
-        // staff_email: "6888@qq.com",
-        // staff_phone: "15918849435",
-        // staff_position: "阿里巴巴CEO",
-        // staff_in:false,
-        // staff_time:''
-      },
+      staffInfor: {},
       reg: new RegExp(
         "^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$"
       ), //邮箱正则表达式
@@ -98,7 +91,7 @@ export default {
         "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
     };
   },
-  mounted(){
+  created(){
     console.log('编辑员工',this.$route.params);
     this.staffInfor=this.$route.params.staff;
     // this.staffInfor.staff_quit=(this.$route.params.staff.staff_quit=='未离职'?false:true);
@@ -126,14 +119,6 @@ export default {
       this.staffInfor.staff_position='';
       this.staffInfor.staff_time='';
       this.staffInfor.staff_quit=false;
-      // = {
-      //   staff_name: "",
-      //   staff_email: "",
-      //   staff_phone: "",
-      //   staff_position: "",
-      //   staff_time:''
-      // };
-      console.log(this.staffInfor);
     }
   }
 };
